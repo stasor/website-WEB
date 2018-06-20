@@ -4,61 +4,139 @@
 <title>Wallpapers</title>
 <link rel="stylesheet" href="style.css">
 <style>
+.myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
+.myImg:hover {opacity: 0.7;}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1; 
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 100%;
+    max-width: 1080px;
+}
+
+
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+.modal-content, #caption {    
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
 </style>
 </head>
 <body>
 
 <ul id="navbar">
-  <li><a class="title">Wallpapers</a></li>
-  <li><a class="active" href="Home.html">Home</a></li>
-  <li><a href="Categories.html">Categories</a></li>
+  <li style="float:left;"><a class="title">Wallpapers</a></li>
+  <li style="float:left;"><a href="Home.html">Home</a></li>
+  <li style="float:left;"><a class = "active" href="Categories.html">Categories</a></li>
 </ul> 
 
 <div class="content">
-    <div class="imgContainer">
-	<a href="images/1.jpg" download="images/1.jpg">
-	<img src="images/1.jpg" height="360" width="640">
-	</a>
-    </div>
-    <div class="imgContainer">
-	<a href="images/2.png" download="images/2.png">
-	<img src="images/2.png" height="360" width="640">
-	</a>
-    </div>
-    <div class="imgContainer">
-	<a href="images/3.jpg" download="images/3.jpg">
-	<img src="images/3.jpg" height="360" width="640">
-	</a>
-    </div>
-    <div class="imgContainer">
-	<a href="images/4.jpg" download="images/4.jpg">
-	<img src="images/4.jpg" height="360" width="640">
-	</a>
-    </div>
-    <div class="imgContainer">
-	<a href="images/5.jpg" download="images/5.jpg">
-	<img src="images/5.jpg" height="360" width="640">
-	</a>
-    </div>
-    <div class="imgContainer">
-	<a href="images/6.jpg" download="images/6.jpg">
-	<img src="images/6.jpg" height="360" width="640">
-	</a>
-    </div>
+	
+	<img id="myImg1" class="myImg" src="images/1.jpg" style="width:100%;max-width:640px;">
+    
+	<img id="myImg2" class="myImg" src="images/2.png" style="width:100%;max-width:640px;">
+
+	<img id="myImg3" class="myImg" src="images/3.jpg" style="width:100%;max-width:640px;">
+
+	<img id="myImg4" class="myImg" src="images/4.jpg" style="width:100%;max-width:640px;">
+	
+	<img id="myImg5" class="myImg" src="images/5.jpg"  style="width:100%;max-width:640px;">
+	
+	<img id="myImg6" class="myImg" src="images/6.jpg"  style="width:100%;max-width:640px;">
+	
 </div>
+
+<div id="myModal" class="modal">
+	<span class="close">&times;</span>
+	<img class="modal-content" id="img">
+	<a id="caption"  ></a>
+</div>
+
 <script>
-window.onscroll = function() {myFunction()};
+var modal = document.getElementById('myModal');
 
-var navbar = document.getElementById("navbar");
-var sticky = navbar.offsetTop;
+var modalImg = document.getElementById("img");
+var captionText = document.getElementById("caption");
 
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
-  } else {
-    navbar.classList.remove("sticky");
-  }
+for (let index = 1; index < 7; index++) {
+	document.getElementById("myImg"+index).addEventListener('click', showMod);
+}
+
+function showMod(){
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = "Download";
+	captionText.href = modalImg.src;
+	captionText.download = modalImg.src;
+	
+}
+
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function() { 
+    modal.style.display = "none";
 }
 </script>
 </body>
